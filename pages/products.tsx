@@ -4,7 +4,7 @@ import Card from '../components/product-card';
 import { Product } from '../interfaces';
 import styles from '../styles/Card.module.css'
 
-const Products: NextPage = ({products} : {products:Product[]}) => {
+const Products = ({products})  => {
     return (
         <div className={`container ${styles.productlist}`} >
             <Hamburger onToggle={toggled => (console.log(toggled))} />
