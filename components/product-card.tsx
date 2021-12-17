@@ -8,7 +8,7 @@ const Card = ({product} : {product:Product}) =>  {
 return (
     <div className={styles.card}>
         <Image 
-            src={product.image_link || '/public/favicon.ico'} 
+            src={product.image_link} 
             alt={product.name}
             height={'300'}
             width={'300'}
