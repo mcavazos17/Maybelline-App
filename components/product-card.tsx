@@ -8,8 +8,8 @@ const Card = ({product} : {product:Product}) =>  {
 return (
     <div className={styles.card}>
         <Image 
-            src={product.image_link} 
-            alt={product.name}
+            src={product.image_link.toString()} 
+            alt={product.name.toString()}
             height={'300'}
             width={'300'}
         />
@@ -18,7 +18,7 @@ return (
             <h4><b>{product.name}</b></h4>
             <p>{product.description.slice(0,140)}...</p>
 
-            <Link href={product.product_link} passHref>
+            <Link href={product.product_link.toString()} passHref>
                 <Button variant="contained" color="secondary">Buy</Button>
             </Link>
         </div>
