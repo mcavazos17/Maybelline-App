@@ -1,29 +1,42 @@
-import Button from '@mui/material/Button';
+import { Rating } from '@mui/material';
 import styles from '../styles/Card.module.css'
 import Image from 'next/image'
 import Link from 'next/link';
 import { Product } from '../interfaces';
 
 const Card = ({product} : {product:Product}) =>  {
-return (
-    <div className={styles.card}>
-        <Image 
-            src={product.image_link.toString()} 
-            alt={product.name.toString()}
-            height={'300'}
-            width={'300'}
-        />
+    return (
+        <a href={product.product_link.toString()} target='_blank' rel="noreferrer">
+            <div className={styles.card}>
+                <div className={styles.imageCard}>
+                    <Image 
+                        src={product.image_link.toString()} 
+                        alt={product.name.toString()}
+                        height={'300'}
+                        width={'300'}
+                    />
+                </div>
 
-        <div className={styles.container}>
-            <h4><b>{product.name}</b></h4>
-            <p>{product.description.slice(0,140)}...</p>
+                <div className={styles.container}>
+                    <div>
+                        <Rating
+                            name="product-rating"
+                            value={Number(product.rating)}
+                            readOnly
+                        />
+                    </div>
 
-            <Link href={product.product_link.toString()} passHref>
-                <Button variant="contained" color="secondary">Buy</Button>
-            </Link>
-        </div>
-    </div>
-);
+                    <div style={{height: '8em'}}>
+                        <h4><b>{product.name}</b></h4>
+                    </div>
+
+                    <div>
+                        <h4>Price: ${product.price}</h4>
+                    </div>
+                </div>
+            </div>
+        </a>
+    );
 }
 
 export default Card;
