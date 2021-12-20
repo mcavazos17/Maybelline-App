@@ -1,20 +1,36 @@
-import type { GetStaticProps } from 'next'
-import Card from '../components/product-card';
-import { Product } from '../interfaces';
-import styles from '../styles/Card.module.css'
-import SearchAppBar from '../components/app-bar';
+import type { GetServerSideProps } from 'next'
 import { useState } from 'react';
-
+import { Product } from '../interfaces';
+import {SearchAppBar, FilterPanel, Card} from '../components';
+import card from '../styles/Card.module.css'
+import filter from '../styles/Filter.module.css'
+import appbar from '../styles/AppBar.module.css'
 
 const Products = ({products} : {products:Product[]})  => {
+    const [allProducts, setAllProducts] = useState(products);
+    const [filteredProducts, setFilteredProducts] = useState(products);
+
+    const HandleOnChange = (value: String) => {
+        const filteredProducts = allProducts.filter(product => {
+            console.log(`${product.name} | ${value}`)
+            return product.name.toUpperCase().includes(value.toUpperCase().toString())
+        });
+
+        setFilteredProducts(filteredProducts);
+    }
+
     return (
         <div>
-            <div style={{marginBottom: '6em'}}>
-                <SearchAppBar />
+            <div className={appbar.component}>
+                <SearchAppBar OnChange={HandleOnChange}/>
             </div>
 
-            <div className={`container ${styles.productlist}`} >
-                {products.map((product: Product) => {
+            <div className={filter.component}>
+                <FilterPanel />
+            </div>
+
+            <div className={card.component}>
+                {filteredProducts.map((product: Product) => {
                     return (
                         <Card key={product.id.toString()} product={product} />
                     )
@@ -24,13 +40,13 @@ const Products = ({products} : {products:Product[]})  => {
     );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-    const products = await fetch('http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline').then(res => res.json());
+export const getServerSideProps: GetServerSideProps = async () => {
+    const products = await fetch('/api/search').then(res => res.json());
 
     return {
         props: {
             products
-        },
+        }, 
     }
 }
 

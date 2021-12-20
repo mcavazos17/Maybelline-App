@@ -1,0 +1,50 @@
+.card {
+    width: 30em;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imageCard {
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.container {
+    padding: 10px 25px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.text {
+    margin: 0px !important;
+}
+
+.spacing {
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+.tag_container {
+    gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    width: auto; 
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: .2em;
+    padding-bottom: .2em;
+    height: auto; 
+    color: white;
+    border-radius: 10px;
+    font-size: 10px;
+    text-align: center
+}
+

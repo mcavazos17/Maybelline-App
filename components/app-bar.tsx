@@ -50,7 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchAppBar = () => {
+const SearchAppBar = (props: { OnChange: (arg0: string) => void; }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='fixed' style={{backgroundColor: 'black'}}>
@@ -84,7 +84,7 @@ const SearchAppBar = () => {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              onChange={change => (console.log(change.currentTarget.value))}
+              onChange={change => (props.OnChange(change.currentTarget.value))}
             />
           </Search>
         </Toolbar>

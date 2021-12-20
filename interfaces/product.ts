@@ -17,5 +17,8 @@ export type Product = {
     updated_at: Date,
     product_api_url: String,
     api_featured_image: String,
-    product_colors: [String],
+    product_colors: [{
+        hex_value: String,
+        colour_name: String
+    }],
 }

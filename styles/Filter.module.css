@@ -1,0 +1,22 @@
+.component {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 7.5em;
+    margin-bottom: 1em;
+}
+
+.section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 10em;
+}
+
+.items {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    padding-right: '.5em'
+}
