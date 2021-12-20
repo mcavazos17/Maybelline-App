@@ -18,3 +18,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.MuiIcon-colorPrimary {
+  background-color: 'white';
+}

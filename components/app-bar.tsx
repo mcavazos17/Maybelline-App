@@ -1,13 +1,16 @@
-import { styled, alpha } from '@mui/material/styles';
+import { styled, alpha, createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import Image from 'next/image'
-import Hamburger from 'hamburger-react'
+import Image from 'next/image';
+import HamburgerDrawer from './drawer';
+import { useState } from 'react';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -50,7 +53,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const theme = createTheme({
+  components: {
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: '#ffffff',
+          width: '1.5em',
+          height: '1.5em'
+        },
+      }
+    }
+  },
+});
+
 const SearchAppBar = (props: { OnChange: (arg0: string) => void; }) => {
+  const [drawerVisible, setDrawerVisibility] = useState(false);
+
+  const HandleOnChange = (value: boolean) => setDrawerVisibility(value);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='fixed' style={{backgroundColor: 'black'}}>
@@ -62,7 +83,14 @@ const SearchAppBar = (props: { OnChange: (arg0: string) => void; }) => {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <Hamburger onToggle={toggled => (console.log(toggled))} />
+
+            <Button 
+              variant="text" 
+              onClick={() => setDrawerVisibility(true)}
+            >
+              <ThemeProvider theme={theme}><MenuIcon /></ThemeProvider>
+            </Button>
+            <HamburgerDrawer visible={drawerVisible} OnChange={HandleOnChange}/>
           </IconButton>
           <Typography
             variant="h6"
