@@ -41,7 +41,7 @@ const Products = ({products} : {products:Product[]})  => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const products = await fetch('/api/search').then(res => res.json());
+    const products = await fetch('https://maybelline-app.herokuapp.com/api/search').then(res => res.json());
 
     return {
         props: {
