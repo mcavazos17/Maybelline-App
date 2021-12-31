@@ -1,9 +1,10 @@
 import Button from '@mui/material/Button';
 import { Rating } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import card from '../styles/CardDetail.module.css'
 import Image from 'next/image'
 import { Product } from '../interfaces';
+import card from '../styles/CardDetail.module.css';
+import { GetColorName } from 'hex-color-to-color-name';
 
 const theme = createTheme({
     palette: {
@@ -42,7 +43,7 @@ const CardDetail = ({product} : {product:Product}) =>  {
                                 className={card.tag}
                                 key={index} 
                                 style={{backgroundColor: `${colour.hex_value}`}}>
-                                    {colour.colour_name}
+                                    {colour.colour_name ?? GetColorName(colour.hex_value.toString())}
                                 </div>
                             )
                         })}

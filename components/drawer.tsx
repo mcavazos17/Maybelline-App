@@ -14,7 +14,7 @@ import PanToolIcon from '@mui/icons-material/PanTool';
 import HearingIcon from '@mui/icons-material/Hearing';
 import Drawer from '@mui/material/Drawer';
 
-const HamburgerDrawer = (props: { visible: boolean, OnChange: (arg0: boolean) => void; }) => {
+const HamburgerDrawer = (props: { visible: boolean }) => {
   const [IsOpen, setIsOpen] = React.useState(false);
   const toggleDrawer =
     (open: boolean) =>
@@ -27,6 +27,7 @@ const HamburgerDrawer = (props: { visible: boolean, OnChange: (arg0: boolean) =>
       ) {
         return;
       }
+
       setIsOpen(open);
     };
 
@@ -38,22 +39,13 @@ const HamburgerDrawer = (props: { visible: boolean, OnChange: (arg0: boolean) =>
         <Drawer
         anchor='left'
         open={IsOpen}
-        onClose={() => {
-          toggleDrawer(false);
-          props.OnChange(false);
-        }}
+        onClose={() => { toggleDrawer(false); }}
         >
             <Box
             sx={{ width: 250 }}
             role="presentation"
-            onClick={() => {
-          toggleDrawer(false);
-          props.OnChange(false);
-        }}
-            onKeyDown={() => {
-          toggleDrawer(false);
-          props.OnChange(false);
-        }}
+            onClick={() => { toggleDrawer(false); }}
+            onKeyDown={() => { toggleDrawer(false); }}
             >
             <List>
                 {['Home', 'Shop All', 'Tips & Trends'].map((text, index) => (

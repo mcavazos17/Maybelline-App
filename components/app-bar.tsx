@@ -70,8 +70,6 @@ const theme = createTheme({
 const SearchAppBar = (props: { OnChange: (arg0: string) => void; }) => {
   const [drawerVisible, setDrawerVisibility] = useState(false);
 
-  const HandleOnChange = (value: boolean) => setDrawerVisibility(value);
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='fixed' style={{backgroundColor: 'black'}}>
@@ -83,14 +81,8 @@ const SearchAppBar = (props: { OnChange: (arg0: string) => void; }) => {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-
-            <Button 
-              variant="text" 
-              onClick={() => setDrawerVisibility(true)}
-            >
-              <ThemeProvider theme={theme}><MenuIcon /></ThemeProvider>
-            </Button>
-            <HamburgerDrawer visible={drawerVisible} OnChange={HandleOnChange}/>
+            <ThemeProvider theme={theme}><MenuIcon /></ThemeProvider>
+            <HamburgerDrawer visible={drawerVisible} />
           </IconButton>
           <Typography
             variant="h6"
