@@ -1,0 +1,12 @@
+.component {
+    display: flex;
+    justify-content: flex-start;
+    padding-right: 6.5em;
+}
+
+.section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+

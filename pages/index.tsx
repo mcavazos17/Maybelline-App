@@ -1,12 +1,14 @@
 import type { GetServerSideProps } from 'next'
 import { useState } from 'react';
 import { Product } from '../interfaces';
-import {SearchAppBar, FilterPanel, Card} from '../components';
+import {SearchAppBar, FilterPanel, Card, Paging} from '../components';
 import card from '../styles/Card.module.css'
 import filter from '../styles/Filter.module.css'
+import paging from '../styles/Pagination.module.css'
 import appbar from '../styles/AppBar.module.css'
+import home from '../styles/Home.module.css'
 
-const Products = ({products} : {products:Product[]})  => {
+const Products = ({products, pages} : {products:Product[], pages: number})  => {
     const [allProducts, setAllProducts] = useState(products);
     const [filteredProducts, setFilteredProducts] = useState(products);
 
@@ -25,8 +27,14 @@ const Products = ({products} : {products:Product[]})  => {
                 <SearchAppBar OnChange={HandleOnChange}/>
             </div>
 
-            <div className={filter.component}>
-                <FilterPanel />
+            <div className={home.filtersort}> 
+                <div className={filter.component}>
+                    <FilterPanel />
+                </div>
+
+                <div className={paging.component}>
+                    <Paging count={pages}/>
+                </div>
             </div>
 
             <div className={card.component}>
@@ -42,10 +50,12 @@ const Products = ({products} : {products:Product[]})  => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const products = await fetch('https://maybelline-app.herokuapp.com//api/search').then(res => res.json());
+    const pages = Math.ceil(products.length / 10);
 
     return {
         props: {
-            products
+            pages,
+            products: products.splice(0, 5)
         }, 
     }
 }
