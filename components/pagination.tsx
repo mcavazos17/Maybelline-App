@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useRef} from 'react';
 import { useRouter } from "next/router"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Pagination from '@mui/material/Pagination';
@@ -26,26 +26,49 @@ const pageSelectTheme = createTheme({
 
 const pageTheme = createTheme({
     components: {
-        MuiPaginationItem: {
+        MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    "&.Mui-selected": {
-                        "backgroundColor": "#f92a63e7",
+                    height: '3em',
+                    '&.Mui-focused fieldset': {
+                        borderColor: '#f92a63e7 !important'
                     },
-                    "&.Mui-selected:hover": {
-                        "backgroundColor": "#ae1d45e7",
-                    },
-                }
-            }
-        }
+                    '&:hover': {
+                        'fieldset': {
+                            borderColor: '#f92a63e7 !important'
+                        },
+                    }
+                },
+            },
+        },
     }
 });
   
 
-const Paging = (props: { PageCount: number }) =>  {
+const Paging = (props: { PageCount: number, ProductCount: number}) =>  {
+    const element = useRef<typeof Pagination>(null);
     const router = useRouter();
     const [pagingLimit, setPagingLimit] = useState(10);
-    const PaginationOnChange = (event: React.ChangeEvent<unknown>, value: number) => router.push({ query: {seed: (value != 1 ? (value - 1) * 10 - 1 : 0).toString()} });
+    const [pagingSelect, setPagingSelect] = useState(props.PageCount);
+    const [currentPage, setCurrentPageSelect] = useState(1);
+
+    const PaginationOnChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        router.push({ query: {seed: (value != 1 ? (value - 1) * pagingLimit - 1 : 0).toString(), limit: pagingLimit} });
+        setCurrentPageSelect(value);
+    };
+
+    const PaginationViewOnChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
+        const limit = event.target.value as number;
+        router.push({ query: {seed: 1, limit} });
+        setPagingLimit(limit);
+    };
+
+    useEffect(() => {
+        if(pagingSelect != props.PageCount)
+        setCurrentPageSelect(1);
+
+        setPagingSelect(props.PageCount);
+      }, [pagingSelect, props.PageCount]);
     
     return (
         <div className={paging.section}>
@@ -55,24 +78,27 @@ const Paging = (props: { PageCount: number }) =>  {
                 <ThemeProvider theme={pageTheme}>
                     <Select
                         value={pagingLimit}
-                        onChange={(event: SelectChangeEvent<number>) => {setPagingLimit(event.target.value as number)}}
+                        onChange={PaginationViewOnChange}
                     >
-                        <MenuItem value={10}>10</MenuItem>
-                        <MenuItem value={20}>20</MenuItem>
-                        <MenuItem value={30}>30</MenuItem>
-                        <MenuItem value={40}>40</MenuItem>
-                        <MenuItem value={50}>50</MenuItem>
-                        <MenuItem value={60}>60</MenuItem>
+                        {[...Array(props.ProductCount)].map((value: any, index: any) => {
+                            const item = (index + 1) * 10;
+
+                            return (
+                                <MenuItem key={index + 1} value={item}>{item}</MenuItem>
+                            )
+                        })}
                     </Select>
                 </ThemeProvider>
             </div>
 
             <div>
                 <ThemeProvider theme={pageSelectTheme}>
-                    <Pagination 
-                        count={props.PageCount} 
+                    <Pagination
+                        ref={element}
+                        count={pagingSelect} 
                         color="primary" 
                         onChange={PaginationOnChange}
+                        page={currentPage}
                     />
                 </ThemeProvider>
             </div>

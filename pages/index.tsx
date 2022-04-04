@@ -8,7 +8,7 @@ import paging from '../styles/Pagination.module.css'
 import appbar from '../styles/AppBar.module.css'
 import home from '../styles/Home.module.css'
 
-const Products = ({products, pages} : { products:Product[], pages: number}) => {
+const Products = ({products, pages, pagesStatic} : { products:Product[], pages: number, pagesStatic: number}) => {
     const [allProducts, setAllProducts] = useState(products);
     const [filteredProducts, setFilteredProducts] = useState(products);
 
@@ -37,7 +37,7 @@ const Products = ({products, pages} : { products:Product[], pages: number}) => {
                 </div>
 
                 <div className={paging.component}>
-                    <Paging PageCount={pages}/>
+                    <Paging PageCount={pages} ProductCount={pagesStatic}/>
                 </div>
             </div>
 
@@ -50,13 +50,15 @@ const Products = ({products, pages} : { products:Product[], pages: number}) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     const products = await fetch('https://maybelline-app.herokuapp.com//api/search').then(res => res.json());
-    const pages = Math.ceil(products.length / 10);
+    const limit = query.limit || 10;
+    const pages = Math.ceil(products.length / (limit as number));
     const seed = query.seed || 0;
 
     return {
         props: {
             pages,
-            products: products.splice(seed, 10)
+            pagesStatic: Math.ceil(products.length / 10),
+            products: products.splice(seed, limit)
         }, 
     }
 }
