@@ -41,6 +41,15 @@ const pageTheme = createTheme({
                 },
             },
         },
+        MuiMenuItem: {
+            styleOverrides:{
+                root: {
+                    "&.Mui-selected": {
+                        "backgroundColor": "#ae1d451f !important",
+                    },
+                }
+            }
+        }
     }
 });
   
@@ -74,7 +83,6 @@ const Paging = (props: { PageCount: number, ProductCount: number}) =>  {
         <div className={paging.section}>
             <div className={paging.page_select}>
                 <div className={paging.page_title}>View</div>
-
                 <ThemeProvider theme={pageTheme}>
                     <Select
                         value={pagingLimit}
