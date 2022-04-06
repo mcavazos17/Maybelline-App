@@ -8,13 +8,27 @@ import Image from 'next/image'
 import { Product } from '../interfaces';
 import CardDetail from './product-card-detail';
 
-const theme = createTheme({
+const buttonTheme = createTheme({
     palette: {
       primary: {
         main: '#f92a63e7',
       },
     },
   });
+
+const ratingTheme = createTheme({
+    components: {
+        MuiRating: {
+            styleOverrides: {
+                root: {
+                    '& .MuiRating-iconFilled': {
+                        color: '#f92a63e7',
+                    },
+                },
+            }
+        }
+    }
+});
 
 const Card = ({Product} : {Product: Product}) =>  {
     const [modalVisibile, setModalVisibility] = useState(false);
@@ -34,11 +48,14 @@ const Card = ({Product} : {Product: Product}) =>  {
 
                 <div className={card.container}>
                     <div>
-                        <Rating
-                            name="product-rating"
-                            value={Number(rating)}
-                            readOnly
-                        />
+                        <ThemeProvider theme={ratingTheme}>
+                            <Rating
+                                name="product-rating"
+                                value={Number(rating)}
+                                readOnly
+                                color='primary'
+                            />
+                        </ThemeProvider>
                     </div>
 
                     <div style={{height: '7em'}}>
@@ -50,7 +67,7 @@ const Card = ({Product} : {Product: Product}) =>  {
                     </div>
 
                     <div style={{marginTop: '1em', marginBottom: '1em'}}>
-                        <ThemeProvider theme={theme}>
+                        <ThemeProvider theme={buttonTheme}>
                             <Button 
                                 variant="contained" 
                                 onClick={() => setModalVisibility(true)}>

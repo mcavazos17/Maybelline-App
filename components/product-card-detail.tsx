@@ -6,13 +6,27 @@ import { Product } from '../interfaces';
 import card from '../styles/CardDetail.module.css';
 import { GetColorName } from 'hex-color-to-color-name';
 
-const theme = createTheme({
+const buttonTheme = createTheme({
     palette: {
       primary: {
         main: '#f92a63e7',
       },
     },
   });
+
+const ratingTheme = createTheme({
+    components: {
+        MuiRating: {
+            styleOverrides: {
+                root: {
+                    '& .MuiRating-iconFilled': {
+                        color: '#f92a63e7',
+                    },
+                },
+            }
+        }
+    }
+});
 
 const CardDetail = ({product} : {product:Product}) =>  {
     return (
@@ -28,13 +42,14 @@ const CardDetail = ({product} : {product:Product}) =>  {
                 </div>
 
                 <div className={card.container}>
-                    <div className={card.spacing}>
+                    <ThemeProvider theme={ratingTheme}>
                         <Rating
                             name="product-rating"
                             value={Number(product.rating)}
                             readOnly
+                            color='primary'
                         />
-                    </div>
+                    </ThemeProvider>
 
                     <div className={`${card.tag_container} ${card.spacing}`}>
                         {product.product_colors.map((colour, index) => {
@@ -62,7 +77,7 @@ const CardDetail = ({product} : {product:Product}) =>  {
                     </div>
 
                     <div className={card.spacing}>
-                        <ThemeProvider theme={theme}>
+                        <ThemeProvider theme={buttonTheme}>
                             <a href={product.product_link.toString()} target='_blank' rel="noreferrer">
                                 <Button variant="contained">
                                     Buy Now

@@ -11,6 +11,7 @@ import home from '../styles/Home.module.css'
 const Products = ({products, pages, pagesStatic} : { products:Product[], pages: number, pagesStatic: number}) => {
     const [allProducts, setAllProducts] = useState(products);
     const [filteredProducts, setFilteredProducts] = useState(products);
+    const [filterPanelVisibility, setfilterPanelVisibility] = useState(true);
 
     useEffect(() => {
         setAllProducts(products);
@@ -22,6 +23,7 @@ const Products = ({products, pages, pagesStatic} : { products:Product[], pages: 
             return product.name.toUpperCase().includes(value.toUpperCase().toString())
         });
 
+        setfilterPanelVisibility(value == '');
         setFilteredProducts(filteredProducts);
     }
 
@@ -31,7 +33,7 @@ const Products = ({products, pages, pagesStatic} : { products:Product[], pages: 
                 <SearchAppBar OnChange={SearchOnChange}/>
             </div>
 
-            <div className={home.filtersort}> 
+            <div className={filterPanelVisibility ? home.filtersort : home.filtersortHide}> 
                 <div className={filter.component}>
                     <FilterPanel />
                 </div>
