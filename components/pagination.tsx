@@ -29,7 +29,7 @@ const pageTheme = createTheme({
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    height: '3em',
+                    height: '2.5em',
                     '&.Mui-focused fieldset': {
                         borderColor: '#f92a63e7 !important'
                     },
