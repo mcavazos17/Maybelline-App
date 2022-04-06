@@ -68,7 +68,7 @@ const Paging = (props: { PageCount: number, ProductCount: number}) =>  {
 
     const PaginationViewOnChange = (event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
         const limit = event.target.value as number;
-        router.push({ query: {seed: 1, limit} });
+        router.push({ query: {seed: 0, limit} });
         setPagingLimit(limit);
     };
 
