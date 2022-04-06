@@ -2,7 +2,7 @@
     display: flex;
     justify-content: flex-start;
     padding-left: 7.5em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 
 .section {
@@ -19,4 +19,11 @@
 
 .title {
     padding-right: '.5em'
+}
+
+
+@media (max-width: 910px) {
+    .component {
+      display: none;
+    }
 }

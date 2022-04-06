@@ -1,0 +1,29 @@
+.component {
+    display: flex;
+    justify-content: flex-start;
+    padding-right: 6.5em;
+    padding-bottom: 2em;
+}
+
+.section {
+    display: flex;
+    align-items: center;
+}
+
+.page_select {
+    display: flex;
+    align-items: center;
+    margin-right: 2em;
+}
+
+.page_title {
+    margin-right: 1em;
+    font-weight: bold;
+}
+
+@media (max-width: 910px) {
+    .component {
+        padding-right: 2em;
+        padding-left: 2em;
+    }
+}

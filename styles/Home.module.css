@@ -108,6 +108,17 @@
   margin-left: 0.5rem;
 }
 
+.filtersort {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 910px) {
+  .filtersort {
+    justify-content: center;
+  }
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

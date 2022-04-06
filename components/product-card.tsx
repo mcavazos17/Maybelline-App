@@ -16,16 +16,17 @@ const theme = createTheme({
     },
   });
 
-const Card = ({product} : {product:Product}) =>  {
+const Card = ({Product} : {Product: Product}) =>  {
     const [modalVisibile, setModalVisibility] = useState(false);
+    const {image_link, name, rating, price} = Product;
 
     return (
         <div>
             <div className={card.card}>
                 <div className={card.imageCard}>
                     <Image 
-                        src={product.image_link.toString()} 
-                        alt={product.name.toString()}
+                        src={image_link.toString()} 
+                        alt={name.toString()}
                         height={'300'}
                         width={'300'}
                     />
@@ -35,17 +36,17 @@ const Card = ({product} : {product:Product}) =>  {
                     <div>
                         <Rating
                             name="product-rating"
-                            value={Number(product.rating)}
+                            value={Number(rating)}
                             readOnly
                         />
                     </div>
 
                     <div style={{height: '7em'}}>
-                        <h4 className={card.text}><b>{product.name}</b></h4>
+                        <h4 className={card.text}><b>{name}</b></h4>
                     </div>
 
                     <div>
-                        <h4 className={card.text}>Price: {'$' + product.price}</h4>
+                        <h4 className={card.text}>Price: {'$' + price}</h4>
                     </div>
 
                     <div style={{marginTop: '1em', marginBottom: '1em'}}>
@@ -64,7 +65,7 @@ const Card = ({product} : {product:Product}) =>  {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                     >
-                       <CardDetail product={product} />
+                       <CardDetail product={Product} />
                     </Dialog>
                 </div>
             </div>

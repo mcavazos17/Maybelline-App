@@ -53,20 +53,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const theme = createTheme({
-  components: {
-    MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          color: '#ffffff',
-          width: '1.5em',
-          height: '1.5em'
-        },
-      }
-    }
-  },
-});
-
 const SearchAppBar = (props: { OnChange: (arg0: string) => void; }) => {
   const [drawerVisible, setDrawerVisibility] = useState(false);
 
@@ -74,16 +60,6 @@ const SearchAppBar = (props: { OnChange: (arg0: string) => void; }) => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='fixed' style={{backgroundColor: 'black'}}>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <ThemeProvider theme={theme}><MenuIcon /></ThemeProvider>
-            <HamburgerDrawer visible={drawerVisible} />
-          </IconButton>
           <Typography
             variant="h6"
             noWrap
